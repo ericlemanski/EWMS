@@ -31,5 +31,26 @@ public class WMSBackend {
             res.type("application/json");
             return gson.toJson(result);
         });
+
+        get("/shipments", (req, res) -> {
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/EWMS", "postgres", "sushisupertime8");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT shipid, ship, car, shipsts, dock FROM shipment");
+
+            JsonArray result = new JsonArray();
+            while (rs.next()) {
+                JsonObject obj = new JsonObject();
+                obj.addProperty("shipid", rs.getInt("shipid"));
+                obj.addProperty("ship", rs.getString("ship"));
+                obj.addProperty("car", rs.getString("car"));
+                obj.addProperty("shipsts", rs.getString("shipsts"));
+                obj.addProperty("dock", rs.getString("dock"));
+                result.add(obj);
+            }
+
+            rs.close(); stmt.close(); conn.close();
+            res.type("application/json");
+            return gson.toJson(result);
+        });
     }
 }
