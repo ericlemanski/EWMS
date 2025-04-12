@@ -1,0 +1,18 @@
+window.onload = () => {
+  fetch("http://localhost:4567/locations")
+    .then(res => res.json())
+    .then(data => {
+      const grid = document.getElementById("locationGrid");
+      grid.innerHTML = "";
+      data.forEach(loc => {
+        const card = document.createElement("div");
+        card.className = "location-card";
+        card.innerHTML = `<strong>${loc.location}</strong><br>Area: ${loc.area}`;
+        grid.appendChild(card);
+      });
+    })
+    .catch(err => {
+      document.getElementById("locationGrid").innerText = "Failed to load data.";
+      console.error(err);
+    });
+};
