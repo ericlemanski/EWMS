@@ -52,5 +52,51 @@ public class WMSBackend {
             res.type("application/json");
             return gson.toJson(result);
         });
+
+        get("/items", (req, res) -> {
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/EWMS", "postgres", "sushisupertime8");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT item_id, item, wh, ea, cs, pa, item_typ, str1, str2 FROM item");
+
+            JsonArray result = new JsonArray();
+            while (rs.next()) {
+                JsonObject obj = new JsonObject();
+                obj.addProperty("item_id", rs.getString("item_id"));
+                obj.addProperty("item", rs.getInt("item"));
+                obj.addProperty("wh", rs.getString("wh"));
+                obj.addProperty("ea", rs.getInt("ea"));
+                obj.addProperty("cs", rs.getInt("cs"));
+                obj.addProperty("pa", rs.getInt("pa"));
+                obj.addProperty("item_typ", rs.getString("item_typ"));
+                obj.addProperty("str1", rs.getString("str1"));
+                obj.addProperty("str2", rs.getString("str2"));
+                result.add(obj);
+            }
+
+            rs.close(); stmt.close(); conn.close();
+            res.type("application/json");
+            return gson.toJson(result);
+        });
+
+        get("/lpns", (req, res) -> {
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/EWMS", "postgres", "sushisupertime8");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT lpn, item, qty, loc, str1 FROM lpn");
+
+            JsonArray result = new JsonArray();
+            while (rs.next()) {
+                JsonObject obj = new JsonObject();
+                obj.addProperty("lpn", rs.getString("lpn"));
+                obj.addProperty("item", rs.getInt("item"));
+                obj.addProperty("qty", rs.getInt("qty"));
+                obj.addProperty("loc", rs.getString("loc"));
+                obj.addProperty("str1", rs.getString("str1"));
+                result.add(obj);
+            }
+
+            rs.close(); stmt.close(); conn.close();
+            res.type("application/json");
+            return gson.toJson(result);
+        });
     }
 }

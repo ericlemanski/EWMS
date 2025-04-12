@@ -7,29 +7,40 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="dashboard">
+
+  <div class="header">
     <h1>Warehouse: WH1</h1>
-    <div class="tabs">
-      <button onclick="showTab('inventory')">Inventory</button>
-      <button onclick="showTab('shipments')">Shipments</button>
-      <button onclick="showTab('config')">Configuration</button>
+  </div>
+
+  <div class="tabs">
+    <button onclick="showTab('inventory')">Inventory</button>
+    <button onclick="showTab('shipments')">Shipments</button>
+    <button onclick="showTab('config')">Configuration</button>
+    <input type="text" id="searchBar" placeholder="Search..." />
+  </div>  
+
+  <!-- Inventory Section -->
+  <div id="inventory" class="tab-content">
+    <div class="sub-tabs">
+      <button onclick="showInventoryTab('locations')">Locations</button>
+      <button onclick="showInventoryTab('items')">Items</button>
+      <button onclick="showInventoryTab('lpns')">LPNs</button>
     </div>
 
-    <div id="inventory" class="tab-content">
-      <h2>Inventory - Locations</h2>
-      <div id="location-list" class="card-list"></div>
-    </div>
+    <div id="location-list" class="card-list inventory-sub-tab"></div>
+    <div id="item-list" class="card-list inventory-sub-tab" style="display:none"></div>
+    <div id="lpn-list" class="card-list inventory-sub-tab" style="display:none"></div>
+  </div>    
 
-    <div id="shipments" class="tab-content" style="display:none">
-      <h2>Shipments</h2>
-      <input type="text" placeholder="Search Shipments" id="shipmentSearch" />
-      <div id="shipment-list" class="card-list"></div>
-    </div>    
+  <!-- Shipments Section -->
+  <div id="shipments" class="tab-content" style="display:none">
+    <div id="shipment-list" class="card-list"></div>
+  </div>    
 
-    <div id="config" class="tab-content" style="display:none">
-      <h2>Configuration</h2>
-      <!-- Configuration UI to add/remove locations will go here -->
-    </div>
+  <!-- Config Section -->
+  <div id="config" class="tab-content" style="display:none">
+    <h2>Configuration</h2>
+    <p>This section will allow configurations</p>
   </div>
 
   <script src="main.js"></script>
