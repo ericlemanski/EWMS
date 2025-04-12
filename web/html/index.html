@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WMS Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+    header {
+      background-color: #3f51b5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .tabs, .sub-tabs {
+      display: flex;
+      background-color: #e0e0e0;
+      justify-content: center;
+    }
+    .tab, .sub-tab {
+      padding: 14px 20px;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+    .tab.active, .sub-tab.active {
+      background-color: #ffffff;
+      border-bottom: 2px solid #3f51b5;
+    }
+    .content {
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .search-bar {
+      margin-bottom: 15px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      width: 100%;
+    }
+    .card:hover {
+      background-color: #f9f9f9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #3f51b5;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #303f9f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Warehouse Management System</h1>
+    <p>Current Warehouse: <strong>WH1</strong></p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('inventory')">Inventory</button>
+    <button class="tab" onclick="showTab('shipments')">Shipments</button>
+    <button class="tab" onclick="showTab('configuration')">Configuration</button>
+  </div>
+
+  <div class="content">
+    <div id="inventory" class="tab-content">
+      <div class="sub-tabs">
+        <button class="sub-tab active" onclick="showSubTab('location')">By Location</button>
+        <button class="sub-tab" onclick="showSubTab('item')">By Item</button>
+        <button class="sub-tab" onclick="showSubTab('lpn')">By LPN</button>
+      </div>
+
+      <div class="search-bar">
+        <input type="text" id="inventorySearch" placeholder="Search inventory..." onkeyup="filterGrid('locationGrid', this.value); filterGrid('itemGrid', this.value); filterGrid('lpnGrid', this.value);" />
+      </div>
+
+      <div id="location" class="sub-tab-content">
+        <h3>Inventory by Location</h3>
+        <div id="locationGrid" class="grid">
+          <div class="card" onclick="alert('Details for 101R101')">Location: 101R101<br>Items: 3</div>
+          <div class="card" onclick="alert('Details for 101R102')">Location: 101R102<br>Items: 5</div>
+        </div>
+      </div>
+
+      <div id="item" class="sub-tab-content hidden">
+        <h3>Inventory by Item</h3>
+        <div id="itemGrid" class="grid">
+          <div class="card">Item: A001<br>Total Qty: 100</div>
+          <div class="card">Item: B002<br>Total Qty: 50</div>
+        </div>
+      </div>
+
+      <div id="lpn" class="sub-tab-content hidden">
+        <h3>Inventory by LPN</h3>
+        <div id="lpnGrid" class="grid">
+          <div class="card">LPN: L001<br>Item: A001<br>Qty: 30<br>Loc: 101R101</div>
+          <div class="card">LPN: L002<br>Item: A001<br>Qty: 70<br>Loc: 101R102</div>
+          <div class="card">LPN: L003<br>Item: B002<br>Qty: 50<br>Loc: 101R103</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="shipments" class="tab-content hidden">
+      <h2>Shipments</h2>
+      <div class="search-bar">
+        <input type="text" id="shipmentSearch" placeholder="Search shipments..." onkeyup="filterGrid('shipmentsGrid', this.value)" />
+      </div>
+      <div id="shipmentsGrid" class="grid">
+        <div class="card">Shipment: S001<br>Status: In Transit</div>
+        <div class="card">Shipment: S002<br>Status: Delivered</div>
+        <div class="card">Shipment: S003<br>Status: Pending</div>
+      </div>
+    </div>
+
+    <div id="configuration" class="tab-content hidden">
+      <h2>Configuration - Manage Locations</h2>
+      <div class="form-group">
+        <label for="location">Location Code</label>
+        <input type="text" id="location" />
+      </div>
+      <div class="form-group">
+        <label for="wh">Warehouse Code</label>
+        <input type="text" id="wh" value="WH1" />
+      </div>
+      <div class="form-group">
+        <label for="area">Area</label>
+        <input type="text" id="area" />
+      </div>
+      <button onclick="addLocation()">Add Location</button>
+
+      <h3>Location List</h3>
+      <table id="locationTable">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Warehouse</th>
+            <th>Area</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic rows go here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+      document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.remove('hidden');
+    }
+
+    function showSubTab(subId) {
+      document.querySelectorAll('.sub-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.sub-tab-content').forEach(tab => tab.classList.add('hidden'));
+      document.querySelector(`button[onclick="showSubTab('${subId}')"]`).classList.add('active');
+      document.getElementById(subId).classList.remove('hidden');
+    }
+
+    function addLocation() {
+      const location = document.getElementById("location").value;
+      const wh = document.getElementById("wh").value;
+      const area = document.getElementById("area").value;
+
+      if (!location || !wh || !area) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const table = document.getElementById("locationTable").getElementsByTagName("tbody")[0];
+      const newRow = table.insertRow();
+      newRow.innerHTML = `
+        <td>${location}</td>
+        <td>${wh}</td>
+        <td>${area}</td>
+        <td><button onclick="deleteRow(this)">Delete</button></td>
+      `;
+
+      document.getElementById("location").value = "";
+      document.getElementById("area").value = "";
+    }
+
+    function deleteRow(button) {
+      const row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
+    function filterGrid(gridId, query) {
+      const cards = document.getElementById(gridId).getElementsByClassName("card");
+      const lowerQuery = query.toLowerCase();
+      Array.from(cards).forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(lowerQuery) ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
