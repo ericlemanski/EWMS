@@ -40,7 +40,7 @@ public class WMSBackend {
             JsonArray result = new JsonArray();
             while (rs.next()) {
                 JsonObject obj = new JsonObject();
-                obj.addProperty("shipid", rs.getInt("shipid"));
+                obj.addProperty("shipid", rs.getString("shipid"));
                 obj.addProperty("ship", rs.getString("ship"));
                 obj.addProperty("car", rs.getString("car"));
                 obj.addProperty("shipsts", rs.getString("shipsts"));
