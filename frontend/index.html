@@ -14,14 +14,32 @@
   </div>
 
   <div class="tabs">
+    <button onclick="showTab('dashboard')" class="active">Dashboard</button>
+    <button onclick="showTab('receiving')">Receiving</button>
     <button onclick="showTab('inventory')">Inventory</button>
+    <button onclick="showTab('picking')">Picking</button>
+    <button onclick="showTab('packing')">Packing</button>
+    <button onclick="showTab('production')">Production</button>
+    <button onclick="showTab('outbound')">Outbound</button>
     <button onclick="showTab('shipments')">Shipments</button>
     <button onclick="showTab('config')">Configuration</button>
     <input type="text" id="searchBar" placeholder="Search..." />
   </div>  
 
+  <!-- Dashboard Section -->
+  <div id="dashboard" class="tab-content" style="display:block">
+    <h2>Dashboard</h2>
+    <p>Overview and key metrics will go here.</p>
+  </div>
+
+  <!-- Receiving Section -->
+  <div id="receiving" class="tab-content" style="display:none">
+    <h2>Receiving</h2>
+    <div id="receiving-list" class="card-list"></div>
+  </div>
+
   <!-- Inventory Section -->
-  <div id="inventory" class="tab-content">
+  <div id="inventory" class="tab-content" style="display:none">
     <div class="sub-tabs">
       <button onclick="showInventoryTab('locations')">Locations</button>
       <button onclick="showInventoryTab('items')">Items</button>
@@ -31,7 +49,31 @@
     <div id="location-list" class="card-list inventory-sub-tab"></div>
     <div id="item-list" class="card-list inventory-sub-tab" style="display:none"></div>
     <div id="lpn-list" class="card-list inventory-sub-tab" style="display:none"></div>
-  </div>    
+  </div>  
+
+  <!-- Picking Section -->
+  <div id="picking" class="tab-content" style="display:none">
+    <h2>Picking</h2>
+    <div id="picking-list" class="card-list"></div>
+  </div>
+
+  <!-- Packing Section -->
+  <div id="packing" class="tab-content" style="display:none">
+    <h2>Packing</h2>
+    <div id="packing-list" class="card-list"></div>
+  </div>
+
+  <!-- Production Section -->
+  <div id="production" class="tab-content" style="display:none">
+    <h2>Production</h2>
+    <div id="production-list" class="card-list"></div>
+  </div>
+
+  <!-- Outbound Section -->
+  <div id="outbound" class="tab-content" style="display:none">
+    <h2>Outbound</h2>
+    <div id="outbound-list" class="card-list"></div>
+  </div>
 
   <!-- Shipments Section -->
   <div id="shipments" class="tab-content" style="display:none">

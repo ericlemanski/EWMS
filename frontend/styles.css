@@ -33,6 +33,12 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
+.tabs button.active {
+  background-color: #444;
+  color: white;
+  font-weight: bold;
+}
+
 .tabs button:hover {
   background-color: #0051ff;
 }
