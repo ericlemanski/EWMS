@@ -4,13 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Warehouse Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
   <div class="header">
     <h1>EWMS</h1>
-    <h3>WM1</h3>
   </div>
 
   <div class="tabs">
@@ -22,6 +21,9 @@
     <button onclick="showTab('production')">Production</button>
     <button onclick="showTab('outbound')">Outbound</button>
     <button onclick="showTab('shipments')">Shipments</button>
+    <button onclick="showTab('reports')">Reports</button>
+    <button onclick="showTab('admin')">Administration</button>
+
     <button onclick="showTab('config')">Configuration</button>
     <input type="text" id="searchBar" placeholder="Search..." />
   </div>  
@@ -77,8 +79,21 @@
 
   <!-- Shipments Section -->
   <div id="shipments" class="tab-content" style="display:none">
+    <h2>Shipments</h2>
     <div id="shipment-list" class="card-list"></div>
   </div>    
+
+  <!-- Reports Section -->
+<div id="reports" class="tab-content" style="display:none">
+  <h2>Reports</h2>
+  <p>Generate and view performance, inventory, and shipping reports here.</p>
+</div>
+
+<!-- Administration Section -->
+<div id="admin" class="tab-content" style="display:none">
+  <h2>Administration</h2>
+  <p>Manage users, roles, permissions, and settings here.</p>
+</div>
 
   <!-- Config Section -->
   <div id="config" class="tab-content" style="display:none">
@@ -86,6 +101,24 @@
     <p>This section will allow configurations</p>
   </div>
 
-  <script src="main.js"></script>
+  <script>
+    const scripts = [
+      'main.js',
+      'inventory.js',
+      'receiving.js',
+      'picking.js',
+      'packing.js',
+      'production.js',
+      'outbound.js',
+      'shipments.js'
+    ];
+  
+    scripts.forEach(file => {
+      const script = document.createElement('script');
+      script.src = `js/${file}`;
+      document.body.appendChild(script);
+    });
+  </script>
+  
 </body>
 </html>

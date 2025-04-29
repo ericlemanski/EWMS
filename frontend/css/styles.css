@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #1e1e1e;
+  background-color: #252525;
   color: #f0f0f0;
   margin: 0;
   padding: 0;
@@ -8,7 +8,7 @@ body {
 
 .header {
   background-color: #2c2c2c;
-  padding: 20px;
+  padding: 1px;
   color: #0019fc;
   border-bottom: 1px solid #444;
 }
@@ -34,7 +34,7 @@ body {
 }
 
 .tabs button.active {
-  background-color: #444;
+  background-color: #0051ff;
   color: white;
   font-weight: bold;
 }
